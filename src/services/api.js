@@ -5,8 +5,7 @@ const callToApi = () => {
   )
     .then((response) => response.json())
     .then((response) => {
-      // Cuando responde la API podemos limpiar los datos aquí
-      console.log(response);
+      // Cuando responde la API podemos limpiar los datos aqui
 
       const country = response.map((country) => ({
         flag: country.flag,

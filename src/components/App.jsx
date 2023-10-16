@@ -8,13 +8,17 @@ const App = () => {
 
   const [countriesList, setcountriesList] = useState([]);
   const [nameSearch, setNameSearch] = useState('');
+  const [continentSelect, setContinentSelect] = useState('');
 
   useEffect(() => {
     callToApi().then((response) => {
       setcountriesList(response);
-      console.log(response);
     });
   }, []);
+
+  const handleSelect = (ev) => {
+    setContinentSelect(ev.target.value);
+  };
 
   const handleInputSearch = (ev) => {
     setNameSearch(ev.target.value);
@@ -24,6 +28,11 @@ const App = () => {
     return countriesList
       .filter((eachCountry) =>
         eachCountry.name.toLowerCase().includes(nameSearch.toLowerCase())
+      )
+      .filter((eachCountry) =>
+        eachCountry.continent
+          .toLowerCase()
+          .includes(continentSelect.toLowerCase())
       )
 
       .map((eachCountry, index) => (
@@ -57,7 +66,21 @@ const App = () => {
               value={nameSearch}
               onChange={handleInputSearch}
             />
-            <label htmlFor="select">By Continnent: </label>
+            <label htmlFor="continent"> By Continent: </label>
+            <select
+              name="continent"
+              id="continent"
+              onChange={handleSelect}
+              value={continentSelect}
+            >
+              <option value="">All</option>
+              <option value="Africa">Africa</option>
+              <option value="North America">North America</option>
+              <option value="South America">South America</option>
+              <option value="Europe">Europe</option>
+              <option value="Asia">Asia</option>
+              <option value="Oceania">Oceania</option>
+            </select>
           </form>
         </section>
         <section>
