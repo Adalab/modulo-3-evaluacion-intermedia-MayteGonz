@@ -60,7 +60,10 @@ const App = () => {
   const handleInputAdd = (ev) => {
     setNewcountry({ ...newCountry, [ev.target.id]: ev.target.value });
   };
-
+  /*   const handleClickRemove = () => {
+    console.log('estoy haciendo Click');
+  };
+ */
   //render
   const renderCountries = () => {
     return countriesList
@@ -73,93 +76,100 @@ const App = () => {
           .includes(continentSelect.toLowerCase())
       )
 
-      .map((eachCountry, index) => (
-        <li key={index}>
+      .map((eachCountry) => (
+        <li key={eachCountry.id}>
           <i>{eachCountry.flag}</i>
           <p>{eachCountry.name}</p>
           <p>{eachCountry.capital}</p>
           <p>{eachCountry.continent}</p>
+          {/*    <button onClick={handleClickRemove()}>X</button> */}
         </li>
       ));
   };
 
   return (
     <div>
-      <header>
+      <header className="header">
         <h1>Country Info App </h1>
         <p>
           Explore Information about countries, capitals, and flags. Add new
           countries and filter through the list!
         </p>
       </header>
-      <main>
-        <section>
-          <h2>Filters</h2>
-          <form onSubmit={handleForm}>
-            <label htmlFor="search">By Country: </label>
-            <input
-              type="search"
-              name="search"
-              placeholder="Spain..."
-              value={nameSearch}
-              onChange={handleInputSearch}
-            />
-            <label htmlFor="continent"> By Continent: </label>
-            <select
-              name="continent"
-              id="continent"
-              onChange={handleSelect}
-              value={continentSelect}
-            >
-              <option value="">All</option>
-              <option value="Africa">Africa</option>
-              <option value="North America">North America</option>
-              <option value="South America">South America</option>
-              <option value="Europe">Europe</option>
-              <option value="Asia">Asia</option>
-              <option value="Oceania">Oceania</option>
-            </select>
-          </form>
-        </section>
-        <section>
-          <h2>Add Country</h2>
-          <form onSubmit={handleForm}>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={newCountry.name}
-              placeholder="Country Name"
-              onChange={handleInputAdd}
-            />
-            <input
-              type="text"
-              name="capital"
-              id="capital"
-              value={newCountry.capital}
-              placeholder="Capital"
-              onChange={handleInputAdd}
-            />
-            <input
-              type="text"
-              name="flag"
-              id="flag"
-              value={newCountry.flag}
-              placeholder="Flag Icon"
-              onChange={handleInputAdd}
-            />
-            <input
-              type="text"
-              name="continent"
-              id="continent"
-              value={newCountry.continent}
-              placeholder="Continent"
-              onChange={handleInputAdd}
-            />
-            <input type="submit" value="Add Country" onClick={handleClickAdd} />
-          </form>
-          <p>{error}</p>
-        </section>
+      <main className="main">
+        <div className="filters">
+          <section className="sectionFilters">
+            <h2>Filters</h2>
+            <form onSubmit={handleForm}>
+              <label htmlFor="search">By Country: </label>
+              <input
+                type="search"
+                name="search"
+                placeholder="Spain..."
+                value={nameSearch}
+                onChange={handleInputSearch}
+              />
+              <label htmlFor="continent"> By Continent: </label>
+              <select
+                name="continent"
+                id="continent"
+                onChange={handleSelect}
+                value={continentSelect}
+              >
+                <option value="">All</option>
+                <option value="Africa">Africa</option>
+                <option value="North America">North America</option>
+                <option value="South America">South America</option>
+                <option value="Europe">Europe</option>
+                <option value="Asia">Asia</option>
+                <option value="Oceania">Oceania</option>
+              </select>
+            </form>
+          </section>
+          <section className="sectionFilters">
+            <h2>Add Country</h2>
+            <form onSubmit={handleForm}>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={newCountry.name}
+                placeholder="Country Name"
+                onChange={handleInputAdd}
+              />
+              <input
+                type="text"
+                name="capital"
+                id="capital"
+                value={newCountry.capital}
+                placeholder="Capital"
+                onChange={handleInputAdd}
+              />
+              <input
+                type="text"
+                name="flag"
+                id="flag"
+                value={newCountry.flag}
+                placeholder="Flag Icon"
+                onChange={handleInputAdd}
+              />
+              <input
+                type="text"
+                name="continent"
+                id="continent"
+                value={newCountry.continent}
+                placeholder="Continent"
+                onChange={handleInputAdd}
+              />
+              <input
+                type="submit"
+                value="Add Country"
+                onClick={handleClickAdd}
+              />
+            </form>
+            <p>{error}</p>
+          </section>
+        </div>
         <section>
           <ul>{renderCountries()}</ul>
         </section>
