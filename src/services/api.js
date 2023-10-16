@@ -12,7 +12,7 @@ const callToApi = () => {
         flag: country.flag,
         name: country.name.common,
         capital: country.capital[0],
-        continent: country.continents,
+        continent: country.continents[0],
         id: country.cca2,
       }));
 

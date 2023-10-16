@@ -7,6 +7,7 @@ const App = () => {
   // Estados
 
   const [countriesList, setcountriesList] = useState([]);
+  const [nameSearch, setNameSearch] = useState('');
 
   useEffect(() => {
     callToApi().then((response) => {
@@ -15,15 +16,24 @@ const App = () => {
     });
   }, []);
 
+  const handleInputSearch = (ev) => {
+    setNameSearch(ev.target.value);
+  };
+
   const renderCountries = () => {
-    return countriesList.map((eachCountry, index) => (
-      <li key={index}>
-        <p>{eachCountry.flag}</p>
-        <p>{eachCountry.name}</p>
-        <p>{eachCountry.capital}</p>
-        <p>{eachCountry.continent}</p>
-      </li>
-    ));
+    return countriesList
+      .filter((eachCountry) =>
+        eachCountry.name.toLowerCase().includes(nameSearch.toLowerCase())
+      )
+
+      .map((eachCountry, index) => (
+        <li key={index}>
+          <p>{eachCountry.flag}</p>
+          <p>{eachCountry.name}</p>
+          <p>{eachCountry.capital}</p>
+          <p>{eachCountry.continent}</p>
+        </li>
+      ));
   };
 
   return (
@@ -40,7 +50,13 @@ const App = () => {
           <h2>Filters</h2>
           <form>
             <label htmlFor="search">By Country: </label>
-            <input type="search" name="search" placeholder="Spain..." />
+            <input
+              type="search"
+              name="search"
+              placeholder="Spain..."
+              value={nameSearch}
+              onChange={handleInputSearch}
+            />
             <label htmlFor="select">By Continnent: </label>
           </form>
         </section>
